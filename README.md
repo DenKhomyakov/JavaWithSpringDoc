@@ -38,3 +38,56 @@
 - Spring Security
 - Spring Boot
 # Дополнительно
+<style scoped>
+.position-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.position-bnt-and-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.download-doc-btn {
+  border: none !important;
+  background: none !important;
+  box-shadow: none;
+  text-decoration: underline !important;
+  transition: color 0.3s, text-decoration 0.3s;
+  white-space: nowrap;
+}
+
+/* Адаптивность для маленьких экранов */
+@media (max-width: 600px) {
+  .position-bnt-and-icon {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .download-doc-btn {
+    font-size: 0.75rem;
+    padding: 0 8px;
+  }
+}
+
+.download-doc-btn:focus,
+.download-doc-btn:hover {
+  border: none !important;
+  background: none !important;
+  box-shadow: none;
+  outline: none;
+  color: rgb(86, 153, 209);
+}
+
+.download-doc-btn::before {
+  display: none;
+}
+
+.download-doc-btn:active::before {
+  display: none;
+}
+</style>
