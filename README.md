@@ -55,10 +55,35 @@
 .download-doc-btn {
   border: none !important;
   background: none !important;
-  box-shadow: none;
+  box-shadow: none !important;
   text-decoration: underline !important;
-  transition: color 0.3s, text-decoration 0.3s;
+  transition: color 0.3s;
   white-space: nowrap;
+  color: inherit !important;
+  min-width: auto !important;
+  padding: 0 8px !important;
+  height: auto !important;
+  font-size: 0.875rem !important;
+}
+
+.download-doc-btn:focus,
+.download-doc-btn:hover {
+  border: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  color: rgb(86, 153, 209) !important;
+  text-decoration: underline !important;
+}
+
+.download-doc-btn::before,
+.download-doc-btn::after {
+  display: none !important;
+}
+
+.download-doc-btn:active {
+  background: none !important;
+  box-shadow: none !important;
 }
 
 /* Адаптивность для маленьких экранов */
@@ -69,25 +94,7 @@
   }
   
   .download-doc-btn {
-    font-size: 0.75rem;
-    padding: 0 8px;
+    font-size: 0.75rem !important;
   }
-}
-
-.download-doc-btn:focus,
-.download-doc-btn:hover {
-  border: none !important;
-  background: none !important;
-  box-shadow: none;
-  outline: none;
-  color: rgb(86, 153, 209);
-}
-
-.download-doc-btn::before {
-  display: none;
-}
-
-.download-doc-btn:active::before {
-  display: none;
 }
 </style>
