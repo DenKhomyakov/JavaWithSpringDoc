@@ -38,63 +38,45 @@
 - Spring Security
 - Spring Boot
 # Дополнительно
-<style scoped>
+<style>
+
 .position-container {
   display: flex;
-  justify-content: flex-end;
-  width: 100%;
-}
-
-.position-bnt-and-icon {
-  display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 8px;
-  flex-wrap: nowrap;
 }
 
 .download-doc-btn {
   border: none !important;
   background: none !important;
-  box-shadow: none !important;
+  box-shadow: none;
   text-decoration: underline !important;
-  transition: color 0.3s;
-  white-space: nowrap;
-  color: inherit !important;
-  min-width: auto !important;
-  padding: 0 8px !important;
-  height: auto !important;
-  font-size: 0.875rem !important;
+  transition: color 0.3s, text-decoration 0.3s;
+}
+
+.position-bnt-and-icon {
+  max-width: 50%;
+  margin-right: -1100px;
+  margin-top: -380px;
+  display: flex;
+  align-items: center;
 }
 
 .download-doc-btn:focus,
 .download-doc-btn:hover {
   border: none !important;
   background: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-  color: rgb(86, 153, 209) !important;
-  text-decoration: underline !important;
+  box-shadow: none;
+  outline: none;
+  color: rgb(86, 153, 209);
 }
 
-.download-doc-btn::before,
-.download-doc-btn::after {
-  display: none !important;
+.download-doc-btn::before {
+  display: none;
 }
 
-.download-doc-btn:active {
-  background: none !important;
-  box-shadow: none !important;
+.download-doc-btn:active::before {
+  display: none;
 }
 
-/* Адаптивность для маленьких экранов */
-@media (max-width: 600px) {
-  .position-bnt-and-icon {
-    flex-direction: column;
-    gap: 4px;
-  }
-  
-  .download-doc-btn {
-    font-size: 0.75rem !important;
-  }
-}
 </style>
