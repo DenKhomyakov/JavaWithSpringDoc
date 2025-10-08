@@ -40,46 +40,27 @@
 # Дополнительно
 <template>
   <v-container ma-0 pa-0 fluid>
-    <v-toolbar
-      flat
-      :height="toolbarHeight"
-      color="headerBackground"
-      class="pl-2 pr-7"
-    >
-      <v-toolbar-title class="mr-auto">
-        Промежуточные результаты
-      </v-toolbar-title>
-    </v-toolbar>
     <div class="position-container">
-      <v-data-table
-        :headers="tableHeaders"
-        :items="reliabilityIndicators.intermediateResults"
-        :items-per-page="itemsPerPage"
-        disable-sort
-        class="table-gtm-elements mt-5 ml-5"
-        :hide-default-footer="true"
-        :hide-default-header="true"
-        style="max-width: 50%; margin-right: 200px"
-      >
-      </v-data-table>
-      <DownArrowIcon size="16" />
-      <div class="position-btn">
+      <div class="position-bnt-and-icon">
+        <DownArrowIcon size="16"/>
         <v-btn
-          @click="downloadIntermediateResults"
-          class="download-csv-btn"
+          @click="downloadForecastResults"
+          class="download-doc-btn"
           small
         >
-          Скачать промежуточные данные расчетов в формате CSV
+          Скачать результаты прогноза
         </v-btn>
       </div>
     </div>
   </v-container>
 </template>
+
 <script>
 import scssVar from "@/styles/exportVarToJs.scss";
 import { mapMutations } from "vuex";
 import DownArrowIcon from "@/components/Icons/DownArrowIcon.vue";
 import FileServiceUtil from "@/assets/js/utils/fileServiceUtil";
+import { compose } from "ol/transform";
 
 export default {
   components: { DownArrowIcon },
@@ -88,78 +69,73 @@ export default {
   data() {
     return {
       toolbarHeight: scssVar.toolbarHeight,
-      tableHeaders: [
-        {
-          value: "jCaption",
-          class: "pl-6",
-        },
-        {
-          value: "jValue",
-          align: "center",
-          width: "8%",
-        },
-      ],
       perPageItems: [10, 20, 40, 80],
       itemsPerPage: 10,
       countMarker: 0,
       items: [],
       reliabilityIndicators: {
-        intermediateResults: [],
+        forecastResults: [],
         treeNodeResultTracer: null,
       },
     };
   },
 
   mounted() {
-    this.getIntermediateResults();
+    this.getForecastResults();
   },
 
   methods: {
     ...mapMutations(["setSnack"]),
 
-    getIntermediateResults() {
-      this.reliabilityIndicators.intermediateResults = [];
+    getForecastResults() {
+      this.reliabilityIndicators.forecastResults = [];
 
       this.axios
-        .get(`/solv/forecastsolver/intermediateResults/${this.forecastId}`)
+        .get(`/solv/forecastsolver/forecastResults/${this.forecastId}`)
         .then((response) => {
           if (!response.data.data) {
             return;
           }
-          this.reliabilityIndicators.intermediateResults = response.data.data;
+
+          this.reliabilityIndicators.forecastResults = response.data.data;
         })
         .catch((thrown) => {
           console.error(thrown.response);
+
           if (thrown.response && thrown.response.data.message) {
-            this.intermediateResults.push({
+            this.forecastResults.push({
               error: thrown.response.data.message,
             });
           }
         });
     },
 
-    downloadIntermediateResults() {
+    downloadForecastResults() {
+      console.log("sdfopsfdkopsdfk")
       this.axios
         .get(
-          `/solv/forecastsolver/initiateDownloadAndGetIntermediateResults/${this.forecastId}`,
+          `/solv/forecastsolver/initiateDownloadAndGetForecastResults/${this.forecastId}`,
           {
             responseType: "blob",
           }
         )
         .then((response) => {
           this.setSnack({
-            message: "Файлы расчета успешно скачаны",
+            message: "Файлы результатов прогноза успешно скачаны",
             color: "success",
           });
+
           let fileName = FileServiceUtil.getFileNameFromResponse(
             response.headers
           );
+
           FileServiceUtil.downloadFile(fileName, response.data);
         })
         .catch((thrown) => {
           console.error(thrown.message);
+
           this.setSnack({
-            message: "Не удалось скачать файлы расчета",
+            message: "Не удалось скачать файлы результатов прогноза",
             color: "error",
           });
         });
@@ -175,7 +151,7 @@ export default {
   align-items: center;
 }
 
-.download-csv-btn {
+.download-doc-btn {
   border: none !important;
   background: none !important;
   box-shadow: none;
@@ -183,23 +159,26 @@ export default {
   transition: color 0.3s, text-decoration 0.3s;
 }
 
-.position-btn {
-  max-width: 50%;
-  margin-right: 60px;
+.position-bnt-and-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.download-csv-btn:focus,
-.download-csv-btn:hover {
+.download-doc-btn:focus,
+.download-doc-btn:hover {
   border: none !important;
   background: none !important;
   box-shadow: none;
   outline: none;
   color: rgb(86, 153, 209);
 }
-.download-csv-btn::before {
+
+.download-doc-btn::before {
   display: none;
 }
-.download-csv-btn:active::before {
+
+.download-doc-btn:active::before {
   display: none;
 }
 </style>
