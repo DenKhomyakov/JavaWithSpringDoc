@@ -38,7 +38,7 @@
 - Spring Security
 - Spring Boot
 # Дополнительно
-<style>
+<style scoped>
 
 .position-container {
   display: flex;
@@ -77,6 +77,18 @@
 
 .download-doc-btn:active::before {
   display: none;
+}
+
+/* Адаптивность для маленьких экранов */
+@media (max-width: 600px) {
+  .position-bnt-and-icon {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .download-doc-btn {
+    font-size: 0.75rem;
+  }
 }
 
 </style>
