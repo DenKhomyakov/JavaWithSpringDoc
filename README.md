@@ -382,18 +382,18 @@ export default {
     getDeviationStructuresItems() {
       this.loading = true;
 
-      const filterParams = [];
+      const filterParams = {};
 
       if (this.selectedFilters.includes('calculations')) {
-        filterParams.lastPileCalcStatus = true;
+        filterParams.lastPileCalcStatus = false;
       }
 
       if (this.selectedFilters.includes('dm')) {
-        filterParams.deformationMarkStatus = true;
+        filterParams.deformationMarkStatus = false;
       }
 
       if (this.selectedFilters.includes('ts')) {
-        filterParams.thermometricWellStatus = true;
+        filterParams.thermometricWellStatus = false;
       }
 
       const url = `/summaryTable/${this.itemsPerPage}/${this.currentPage - 1}/${this.sortBy}/${this.sortDesc}`;
@@ -491,29 +491,6 @@ export default {
     /**
      * Применение фильтров
      */
-    // applyFilters() {
-    //   if (this.selectedFilters.length === 0) {
-    //     this.filteredItems = [...this.deviationStructuresItems];
-    //
-    //     return;
-    //   }
-    //
-    //   this.filteredItems = this.deviationStructuresItems.filter(item => {
-    //     return this.selectedFilters.every(filter => {
-    //       switch (filter) {
-    //         case 'calculations':
-    //           return item.lastPileCalcStatus !== null;
-    //         case 'dm':
-    //           return item.deformationMarkStatus !== null;
-    //         case 'ts':
-    //           return item.thermometricWellStatus !== null;
-    //         default:
-    //           return true;
-    //       }
-    //     });
-    //   });
-    // },
-
     applyFilters() {
       this.currentPage = 1;
       this.getDeviationStructuresItems();
